@@ -5,6 +5,7 @@ edition = "2024"
 
 [dependencies]
 tokio = { version = "1.47.1", features = ["rt", "rt-multi-thread", "macros"] }
-axum = "0.8.4"
+axum = { version = "0.8.4" ,features = ["json", "tokio"]}
 toml_edit = "0.23.3"
 anyhow = "1.0.99"
+serde = { version = "1.0.219", features = ["derive"] }

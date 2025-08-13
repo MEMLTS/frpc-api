@@ -2,12 +2,11 @@ use std::fs;
 use toml_edit::{DocumentMut, Item, value};
 use anyhow::{Result, anyhow};
 
-fn get_value(path: &str, key: &str) -> Result<String> {
+pub fn get_value(path: &str, key: &str) -> Result<String> {
     let toml_str = fs::read_to_string(path)?;
     let doc = toml_str.parse::<DocumentMut>()?;
 
     let mut current_item: &Item = &Item::Table(doc.as_table().clone().into());
-
     for k in key.split('.') {
         current_item = match current_item.get(k) {
             Some(v) => v,
@@ -28,7 +27,7 @@ fn get_value(path: &str, key: &str) -> Result<String> {
     Ok(result.trim().to_string())
 }
 
-fn set_value(path: &str, key: &str, new_value: &str) -> Result<()> {
+pub fn set_value(path: &str, key: &str, new_value: &str) -> Result<()> {
     let toml_str = fs::read_to_string(path)?;
     let mut doc = toml_str.parse::<DocumentMut>()?;
 
